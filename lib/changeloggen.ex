@@ -65,11 +65,50 @@ defmodule Changeloggen do
     end
   end
 
+  defp append_pr(_, [], groups), do: groups
+
+  defp append_pr(pr, labels, groups) when is_list(labels) and is_map(groups) do
+    [label | tail] = labels
+    cond do
+      Map.has_key?(groups, label) ->
+        groups = Map.put(groups, label, [pr | groups[label]])
+        append_pr(pr, tail, groups)
+      true ->
+        append_pr(pr, tail, groups)
+    end
+  end
+
+  defp append_pr(pr, groups), do: append_pr(pr, pr.labels, groups)
+
+  defp make_groups([], groups), do: groups
+
+  defp make_groups(prs, groups) when is_list(prs) and is_map(groups) do
+    [pr | tail] = prs
+    make_groups(tail, append_pr(pr, groups))
+  end
+
   def group_by_labels(prs, labels \\ []) when is_list(prs) and is_list(labels) do
-    # get_changes(repo_url, release)
-    # |> Enum.group_by(c -> )
-    # Enum.group_by(prs,
-    #   fn pr -> pr.)
+    {_, empty_groups} = Enum.map_reduce(labels, %{}, fn label, groups ->
+      {label, Map.put(groups, label, [])}
+    end)
+    make_groups(prs, empty_groups)
+  end
+
+  def mock_prs() do
+    [
+      %PR{
+        title: "test1",
+        number: 1,
+        user: "user1",
+        labels: ["bug", "0.1.0"]
+      },
+      %PR{
+        title: "test2",
+        number: 2,
+        user: "user2",
+        labels: ["feature", "0.1.0"]
+      },
+    ]
   end
 
   def print(changes) do
