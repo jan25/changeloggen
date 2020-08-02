@@ -24,6 +24,7 @@ Changelog generator based on Github PR labels.
 
 ## Ideas
 
+- Refactory code into appropriate modules and files
 - Prepend or append to existing file
 - Custom template for changelog
 - Name for each label/tag (Feature -> Features)
