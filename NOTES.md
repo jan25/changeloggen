@@ -30,3 +30,4 @@ Changelog generator based on Github PR labels.
 - Name for each label/tag (Feature -> Features)
 - Save on github query by not getting all PRs ever made!
 - Link to PR and user profile in output markdown
+- Write tests and setup CI based on github actions

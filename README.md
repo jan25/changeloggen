@@ -1,21 +1,5 @@
-# Changeloggen
+# changeloggen
 
-**TODO: Add description**
+Simple changelog generator for Github repositories. This cli tool works with **Github labels** attached to Pull requests to generate a markdown formatted changelog. It also provides a way to group by additional labels such as `Bug`, `Feature` etc.
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `changeloggen` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:changeloggen, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/changeloggen](https://hexdocs.pm/changeloggen).
-
+This project is still a `WIP`, but you can already look around in this repository :)
