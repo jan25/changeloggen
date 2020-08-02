@@ -42,7 +42,7 @@ defmodule Changeloggen do
 
   defp filter_and_convert_to_prs(pr_map_list, release)
        when is_list(pr_map_list) and is_bitstring(release) do
-    # TODO filter for merged
+    # TODO filter for MERGED
     Enum.filter(pr_map_list, fn pr ->
       Enum.any?(pr["labels"], fn label -> label["name"] === release end)
     end)
