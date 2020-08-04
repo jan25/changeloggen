@@ -7,7 +7,7 @@ defimpl String.Chars, for: PR do
   def to_string(pr), do: "#{pr.title} (##{pr.number}, @#{pr.user})"
 end
 
-defmodule Changeloggen do
+defmodule Api do
   @pr_list_url "https://api.github.com/repos/{owner}/{repo}/pulls?state=open"
 
   defp parse_url(repo_url) when is_bitstring(repo_url) do
@@ -128,7 +128,4 @@ defmodule Changeloggen do
     ]
   end
 
-  def print(changes) do
-    Enum.map(changes, fn c -> IO.puts(c) end)
-  end
 end
