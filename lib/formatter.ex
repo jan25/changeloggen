@@ -38,7 +38,7 @@ defmodule Formatter do
 
   defp group_tmpl({_, []}), do: ""
 
-  defp group_tmpl({label, prs}) when is_bitstring(lable) and is_list(prs) do
+  defp group_tmpl({label, prs}) when is_bitstring(label) and is_list(prs) do
     prs_string = Enum.reduce(prs, "", fn pr, acc -> acc <> "* #{pr}\n" end)
 
     String.replace(@grouped_changes_tmpl, "{label}", label)
