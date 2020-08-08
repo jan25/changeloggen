@@ -1,17 +1,19 @@
 # changeloggen ![ci-tests](https://github.com/jan25/changeloggen/workflows/ci/badge.svg)
 
-Simple changelog generator for Github repositories. This cli tool works with **Github labels** attached to Pull requests to generate a markdown formatted changelog. It also provides a way to group by additional labels such as `Bug`, `Feature` etc.
+Simple changelog generator for Github repositories. This cli tool fetches changes after latest release tag to generate a markdown formatted changelog. It also provides a option to group by additional labels attached to PR such as `Bug`, `Feature` etc.
 
 ## Install
 
 WIP
 
-## Features
+## Usage
 
 ``` bash
-$ changeloggen --release=0.0.2 [--url=github.com/org/repo] [--labels=Feature, Bug] [--output=CHANGELOG]
+$ changeloggen --help
 
-# 0.0.2
+$ changeloggen [--release=0.2.0] [--url=github.com/org/repo] [--labels=Feature,Bug]
+
+# 0.2.0
 
 ## Feature
 * New awesome feature (#12, @user)
@@ -21,5 +23,3 @@ $ changeloggen --release=0.0.2 [--url=github.com/org/repo] [--labels=Feature, Bu
 * Fix somethinng (#11, @user3)
 * Fixed a bug (#10, @user1)
 ```
-
-Note: Some of above options are WIP.
