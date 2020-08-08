@@ -4,7 +4,16 @@ Simple changelog generator for Github repositories. This cli tool fetches change
 
 ## Install
 
-WIP
+Make sure to have [Erlang and Elixir](https://elixir-lang.org/install.html#distributions) local installations.
+
+Clone this repository and use `mix` to build and run this tool.
+```bash
+$ cd path/to/changeloggen
+$ mix escript.build
+$ ./changeloggen --help
+```
+
+WIP: Publish to hex.pm so installing using `mix escripts.install changeloggen` is possible.
 
 ## Usage
 
