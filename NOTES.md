@@ -31,3 +31,5 @@ Changelog generator based on Github PR labels.
 - Save on github query by not getting all PRs ever made!
 - Link to PR and user profile in output markdown
 - Write tests and setup CI based on github actions
+- Support --prs-since=DATETIME in addition to release. Maybe this is more useful
+- Use https://github.com/edgurgel/tentacat for calling github api

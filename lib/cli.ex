@@ -20,7 +20,7 @@ defmodule Cli do
         ]
       )
 
-    # IO.inspect(parsed)
+    IO.inspect(parsed)
     parsed
   end
 
@@ -58,7 +58,7 @@ defmodule Cli do
           [] ->
             IO.puts("No matching PRs found matching release: #{args[:release]}")
           prs ->
-            groups = Api.group_by_labels(prs, args[:labels])
+            groups = Api.group_by_labels(prs, labels)
             IO.puts(Formatter.grouped(groups, args[:release]))
         end
 
