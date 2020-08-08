@@ -104,7 +104,7 @@ defmodule Api do
   @doc """
   Groups a list of PRs by supplied labels
   """
-  def group_by_labels(prs, labels \\ []) when is_list(prs) and is_list(labels) do
+  def group_by_labels(prs, labels) when is_list(prs) and is_list(labels) do
     {_, empty_groups} =
       Enum.map_reduce(labels, %{}, fn label, groups ->
         {label, Map.put(groups, label, [])}
@@ -136,22 +136,5 @@ defmodule Api do
   end
 
   defp append_pr(pr, groups), do: append_pr(pr, pr.labels, groups)
-
-  def mock_prs() do
-    [
-      %PR{
-        title: "test1",
-        number: 1,
-        user: "user1",
-        labels: ["bug", "0.1.0"]
-      },
-      %PR{
-        title: "test2",
-        number: 2,
-        user: "user2",
-        labels: ["feature", "0.1.0"]
-      }
-    ]
-  end
 
 end

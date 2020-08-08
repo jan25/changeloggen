@@ -8,7 +8,6 @@ defmodule Formatter do
 
   @grouped_changes_tmpl """
   ## {label}
-
   {changes}
   """
 
@@ -29,7 +28,7 @@ defmodule Formatter do
         "No PRs found matching supplied labels"
 
         _ ->
-        changes = Enum.reduce(groups, "", fn group, acc -> acc <> group end)
+        changes = Enum.reduce(groups_strs, "", fn groups_str, acc -> acc <> groups_str end)
 
         String.replace(@output_tmpl, "{release}", release)
         |> String.replace("{changes}", changes)

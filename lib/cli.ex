@@ -1,6 +1,8 @@
 defmodule Cli do
   @usage """
-  TODO add usage
+  Usage:
+
+  changelogen [--release=v0.1.0] [--labels=Bug,Feature]
   """
 
   def main(args) do
@@ -15,17 +17,19 @@ defmodule Cli do
           release: :string,
           url: :string,
           labels: :string,
-          group_by: :string,
-          output: :string
+          output: :string,
+          help: :boolean
         ]
       )
 
-    IO.inspect(parsed)
     parsed
   end
 
   defp generate_changelog(args) do
     cond do
+      args[:help] ->
+        IO.puts @usage
+
       is_nil(args[:release]) ->
         generate_changelog([{:release, "Release version placeholder"} | args])
 
@@ -55,11 +59,13 @@ defmodule Cli do
           |> Enum.map(&String.trim/1)
 
         case Api.get_prs_after_last_release(args[:url]) do
-          [] ->
+          {:ok, []} ->
             IO.puts("No matching PRs found matching release: #{args[:release]}")
-          prs ->
+          {:ok, prs} ->
             groups = Api.group_by_labels(prs, labels)
             IO.puts(Formatter.grouped(groups, args[:release]))
+          {:error, reason} ->
+            IO.puts("Error: #{reason}")
         end
 
       true ->
