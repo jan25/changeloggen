@@ -1,25 +1,34 @@
 # changeloggen ![ci-tests](https://github.com/jan25/changeloggen/workflows/ci/badge.svg)
 
-Simple changelog generator for Github repositories. This cli tool works with **Github labels** attached to Pull requests to generate a markdown formatted changelog. It also provides a way to group by additional labels such as `Bug`, `Feature` etc.
+Simple changelog generator for Github repositories. This cli tool uses PRs after latest release tag to generate a markdown formatted changelog. It also provides a option to group by additional labels attached to PR such as `Bug`, `Feature` etc.
 
 ## Install
 
-WIP
+Make sure to have [Erlang and Elixir](https://elixir-lang.org/install.html#distributions) local installations.
 
-## Features
-
-``` bash
-$ changeloggen --release=0.0.2 [--url=github.com/org/repo] [--labels=Feature, Bug] [--output=CHANGELOG]
-
-# 0.0.2
-
-## Feature
-* New awesome feature (#12, @user)
-* Another cool feature (#13, @user2)
-
-## Bug
-* Fix somethinng (#11, @user3)
-* Fixed a bug (#10, @user1)
+Clone this repository and use `mix` to build and run this tool.
+```bash
+$ cd path/to/changeloggen
+$ mix escript.build
+$ ./changeloggen --help
 ```
 
-Note: Some of above options are WIP.
+WIP: Publish to hex.pm so installing using `mix escripts.install changeloggen` is possible.
+
+## Usage
+
+``` bash
+$ changeloggen --help
+
+$ changeloggen [--release=0.2.0] [--url=github.com/org/repo] [--labels=Feature,Bug]
+
+# 0.2.0
+
+## Feature
+* New awesome feature (#12, @honey)
+* Another cool feature (#13, @badger)
+
+## Bug
+* Fix somethinng (#11, @honeybadger)
+* Fixed a bug (#10, @fearless)
+```

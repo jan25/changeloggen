@@ -1,6 +1,8 @@
 defmodule Cli do
   @usage """
-  TODO add usage
+  Usage:
+
+  changelogen [--release=v0.1.0] [--labels=Bug,Feature]
   """
 
   def main(args) do
@@ -15,19 +17,21 @@ defmodule Cli do
           release: :string,
           url: :string,
           labels: :string,
-          group_by: :string,
-          output: :string
+          output: :string,
+          help: :boolean
         ]
       )
 
-    # IO.inspect(parsed)
     parsed
   end
 
   defp generate_changelog(args) do
     cond do
+      args[:help] ->
+        IO.puts @usage
+
       is_nil(args[:release]) ->
-        IO.puts("Error: missing release option")
+        generate_changelog([{:release, "Release version placeholder"} | args])
 
       is_nil(args[:url]) ->
         case Git.parse_origin_url() do
@@ -39,7 +43,7 @@ defmodule Cli do
         end
 
       is_nil(args[:labels]) ->
-        case Api.get_prs(args[:url], args[:release]) do
+        case Api.get_prs_after_last_release(args[:url]) do
           {:ok, []} ->
             IO.puts("No matching PRs found matching release: #{args[:release]}")
           {:ok, prs} ->
@@ -54,12 +58,14 @@ defmodule Cli do
           |> String.split(",")
           |> Enum.map(&String.trim/1)
 
-        case Api.get_prs(args[:url], args[:release]) do
-          [] ->
+        case Api.get_prs_after_last_release(args[:url]) do
+          {:ok, []} ->
             IO.puts("No matching PRs found matching release: #{args[:release]}")
-          prs ->
-            groups = Api.group_by_labels(prs, args[:labels])
+          {:ok, prs} ->
+            groups = Api.group_by_labels(prs, labels)
             IO.puts(Formatter.grouped(groups, args[:release]))
+          {:error, reason} ->
+            IO.puts("Error: #{reason}")
         end
 
       true ->
