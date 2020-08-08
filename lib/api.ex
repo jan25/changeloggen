@@ -15,9 +15,13 @@ defmodule Api do
 
   @doc """
   Parses raw github repository url and returns owner, repository name
+
+  Sample input:
+  github.com/jan25/changeloggen/some-folder
+  github.com/jan25/changeloggen.git
   """
   def parse_url(repo_url) when is_bitstring(repo_url) do
-    case Regex.named_captures(~r/github.com\/(?<owner>[^\/]+)\/(?<repo>[^\/]+).*/, repo_url) do
+    case Regex.named_captures(~r/github.com\/(?<owner>[^\/]+)\/(?<repo>[^\/\.]+).*/, repo_url) do
       nil ->
         {:error, "Invalid repo_url: #{repo_url}"}
 
