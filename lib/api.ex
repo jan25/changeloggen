@@ -84,20 +84,6 @@ defmodule Api do
   defp decode_pr_search_response({_, _, _}), do: {:error, "Failed to fetch pull requests"}
 
   @doc """
-  Returns list of PRs with matching release label
-
-  deprecated. move away from using release label
-  """
-  def get_prs(repo_url, release) when is_bitstring(repo_url) and is_bitstring(release) do
-    case fetch_pr_list(repo_url, "") do
-      {:ok, pr_list} ->
-        {:ok, Enum.filter(pr_list, fn pr -> Enum.any?(pr.labels, &(&1 === release)) end)}
-      {:error, reason} ->
-        {:error, reason}
-    end
-  end
-
-  @doc """
   Get list of PRs since latest release.
 
   Returns all PRs to the repo if no release is available.
@@ -131,6 +117,7 @@ defmodule Api do
   end
 
   defp append_pr(_, [], groups), do: groups
+
   defp append_pr(pr, labels, groups) when is_list(labels) and is_map(groups) do
     [label | tail] = labels
 

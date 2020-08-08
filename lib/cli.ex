@@ -27,7 +27,7 @@ defmodule Cli do
   defp generate_changelog(args) do
     cond do
       is_nil(args[:release]) ->
-        IO.puts("Error: missing release option")
+        generate_changelog([{:release, "Release version placeholder"} | args])
 
       is_nil(args[:url]) ->
         case Git.parse_origin_url() do
@@ -39,7 +39,7 @@ defmodule Cli do
         end
 
       is_nil(args[:labels]) ->
-        case Api.get_prs(args[:url], args[:release]) do
+        case Api.get_prs_after_last_release(args[:url]) do
           {:ok, []} ->
             IO.puts("No matching PRs found matching release: #{args[:release]}")
           {:ok, prs} ->
@@ -54,7 +54,7 @@ defmodule Cli do
           |> String.split(",")
           |> Enum.map(&String.trim/1)
 
-        case Api.get_prs(args[:url], args[:release]) do
+        case Api.get_prs_after_last_release(args[:url]) do
           [] ->
             IO.puts("No matching PRs found matching release: #{args[:release]}")
           prs ->
