@@ -47,10 +47,6 @@ defmodule Api do
     end
   end
 
-  defp time_cmp(a, b) when is_bitstring(a) and is_bitstring(b) do
-    DateTime.compare(elem(DateTime.to_iso8601(a), 1), elem(DateTime.to_iso8601(b), 1))
-  end
-  
   @doc """
   Fetches PR list, parses and returns list of PR structs
   """
