@@ -33,4 +33,4 @@ Changelog generator based on Github PR labels.
 - Write tests and setup CI based on github actions
 - Support --prs-since=DATETIME in addition to release. Maybe this is more useful
 - Use https://github.com/edgurgel/tentacat for calling github api
-- Pass OAuth to do more APIs hits per hour(not required)
+- Pass OAuth token to avoid rate limit problems (may not be a big issue)
